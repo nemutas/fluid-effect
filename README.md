@@ -1,4 +1,5 @@
 # About
+Inspired by [Little Red Riding Hood](https://ai-quest.lusion.co/).
 
 https://nemutas.github.io/fluid-effect/
 
