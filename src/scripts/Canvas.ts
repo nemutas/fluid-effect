@@ -28,6 +28,15 @@ export class Canvas extends Three {
       this.createMeshes(texture)
 
       this.renderer.setAnimationLoop(this.anime.bind(this))
+
+      // check other fps
+      // const fps = 120
+      // setInterval(
+      //   () => {
+      //     this.anime()
+      //   },
+      //   (1 / fps) * 1000,
+      // )
     })
   }
 
