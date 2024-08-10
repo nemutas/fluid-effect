@@ -3,9 +3,9 @@ import { RawShaderMaterial } from '../core/ExtendedMaterials'
 import { shader, ShaderName } from './shader/shaders'
 
 export class Simulatior {
-  private readonly PIXEL_RATIO = 2 // 解像度に対する係数
-  private readonly DIFFUSE_ITERATION = 4 // 拡散計算のイテレーション回数
-  private readonly PROJECT_ITERATION = 16 // 質量計算のイテレーション回数
+  private readonly PIXEL_RATIO // 解像度に対する係数
+  private readonly DIFFUSE_ITERATION // 拡散計算のイテレーション回数
+  private readonly PROJECT_ITERATION // 質量計算のイテレーション回数
 
   private readonly canvas: HTMLCanvasElement
   private readonly camera: THREE.OrthographicCamera
@@ -38,7 +38,16 @@ export class Simulatior {
   constructor(
     private readonly renderer: THREE.WebGLRenderer,
     private readonly scene: THREE.Scene,
+    private options?: {
+      pixel_ratio?: number
+      diffuse_iteration?: number
+      project_iteration?: number
+    },
   ) {
+    this.PIXEL_RATIO = options?.pixel_ratio ?? 2
+    this.DIFFUSE_ITERATION = options?.diffuse_iteration ?? 4
+    this.PROJECT_ITERATION = options?.project_iteration ?? 16
+
     this.canvas = renderer.domElement
     this.camera = new THREE.OrthographicCamera()
 

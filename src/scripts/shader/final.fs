@@ -10,17 +10,10 @@ uniform vec2 coveredScale;
 in vec2 vUv;
 out vec4 outColor;
 
+#include './glsl/packing.glsl'
+
 void main() {
-  vec2 px = 1.0 / resolution;
-  vec4 velocity;
-  const float range = 5.0;
-  const float halfRange = (range - 1.0) / 2.0;
-  for (float i = -halfRange; i <= halfRange; i++) {
-    for (float j = -halfRange; j <= halfRange; j++) {
-      velocity += texture(velocityTexture, vUv + vec2(i, j) * px);
-    }
-  }
-  velocity /= range * range;
+  vec4 velocity = texture(velocityTexture, vUv);
 
   vec2 uv = (vUv - 0.5) * coveredScale + 0.5;
 
@@ -31,7 +24,7 @@ void main() {
 
   float gray = dot(color, vec3(0.299, 0.587, 0.114));
 
-  float fill = texture(fillTexture, vUv).r;
+  float fill = unpackRGBAToDepth(texture(fillTexture, vUv));
 
   color = mix(vec3(gray) * 0.25, color, fill);
   color = mix(color, pow(color * 2.5, vec3(2.0)), length(velocity.xy));

@@ -5,6 +5,7 @@ import { Three } from './core/Three'
 import { pane } from './Gui'
 import { shader, ShaderName } from './shader/shaders'
 import { Simulatior } from './simulation/Simulatior'
+import { isTouch } from './utils/media'
 
 export class Canvas extends Three {
   private readonly simulatior: Simulatior
@@ -15,7 +16,7 @@ export class Canvas extends Three {
     super(canvas)
     this.camera = new OrthographicCamera()
 
-    this.simulatior = new Simulatior(this.renderer, this.scene)
+    this.simulatior = new Simulatior(this.renderer, this.scene, { pixel_ratio: isTouch ? 3 : 2 })
 
     this.loadParams()
 
@@ -75,11 +76,7 @@ export class Canvas extends Three {
 
   private createFillFrameBuffers() {
     const { width, height } = this.size
-    const create = () =>
-      new THREE.WebGLRenderTarget(width, height, {
-        type: THREE.FloatType,
-        format: THREE.RGBAFormat,
-      })
+    const create = () => new THREE.WebGLRenderTarget(width, height)
 
     this.fillFramebuffers = [create(), create()]
   }
