@@ -38,7 +38,7 @@ export class Simulatior {
   constructor(
     private readonly renderer: THREE.WebGLRenderer,
     private readonly scene: THREE.Scene,
-    private options?: {
+    options?: {
       pixel_ratio?: number
       diffuse_iteration?: number
       project_iteration?: number
